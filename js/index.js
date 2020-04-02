@@ -1,24 +1,5 @@
 // Your code goes here
 
-
-
-const anchorTags = document.querySelectorAll('a');
-console.log(anchorTags);
-anchorTags.forEach(item => {
-    item.addEventListener('click', e => {
-        // stop links from working
-        e.preventDefault();
-        // Random RGB Colors
-        let red = Math.floor(Math.random() * 256);
-        let blue = Math.floor(Math.random() * 256);
-        let green = Math.floor(Math.random() * 256);
-        item.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
-        console.log(red, blue, green);
-    });
-});
-
-// Fun Bus Image
-const funBusImg = document.querySelector('#funBus');
 busImages = {
     0: 'https://upload.wikimedia.org/wikipedia/commons/6/63/LT_471_%28LTZ_1471%29_Arriva_London_New_Routemaster_%2819522859218%29.jpg',
     1: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Lothian_Buses_Envrio400XLB_1071.jpg',
@@ -32,20 +13,6 @@ busImages = {
     9: 'https://www.dallaspartybusrental.com/wp-content/uploads/2015/11/party-buses-for-rent-garland.jpg',
 }
 
-// Mouse enter event on Fun Bus Image
-funBusImg.addEventListener('mouseenter', e => {
-    // Random number between 0 and 9
-    let randomImg = Math.floor(Math.random() * 10);
-    // Change the image src to whatever index is generated from randomImg
-    funBusImg.src = busImages[randomImg];
-    funBusImg.alt = 'Random Image';
-})
-
-
-// Content Section
-const contentSection = document.querySelector('.content-section');
-
-// Random gradient backgrounds
 const randomBackgrounds = {
     0: '290deg, #6a5d6a, #2e902a',
     1: '355deg, #7858a4, #1cbc44',
@@ -70,79 +37,63 @@ const randomBackgrounds = {
     20: '177deg, #e33a3d, #b21ea3',
 }
 
+$("nav > a").on("click", function() {
+    event.preventDefault()
+    // Random RGB Colors
+    let red = Math.floor(Math.random() * 256);
+    let blue = Math.floor(Math.random() * 256);
+    let green = Math.floor(Math.random() * 256);
+    $(this).css("background-color", `rgb(${red}, ${green}, ${blue})`)
+})
 
-// Scroll Event
-window.addEventListener('scroll', e => {
+$("#funBus").on("mouseenter", function() {
+    let randomNum = Math.floor(Math.random() * 10)
+    $(this).attr("src", busImages[randomNum])
+})
+
+$(window).on("scroll", function() {
     let randomBackNumber = Math.floor(Math.random() * 21);
-    contentSection.style.background = `linear-gradient(${randomBackgrounds[randomBackNumber]})`;
-});
-
-// Grab images with class of image
-let imgContainer = document.querySelectorAll('.image');
-console.log(imgContainer);
-
-// Loop through NodeList and add eventlistener to each item
-imgContainer.forEach(item => {
-    // Mousemove event
-    item.addEventListener('mousemove', e => {
-        item.setAttribute('width', Math.floor(Math.random() * 1001) + 100);
-        item.setAttribute('height', Math.floor(Math.random() * 1001) + 100);
-        item.style.maxWidth = 'none';
-    })
+    $(".content-section").css("background", `linear-gradient(${randomBackgrounds[randomBackNumber]})`)
 })
 
-let pTags = document.querySelectorAll('p');
-
-pTags.forEach(item => {
-    item.addEventListener('dblclick', e => {
-        item.style.fontSize = `${Math.floor(Math.random() * 76) + 16}px`;
-    })
+$(".image").on('mousemove', function() {
+    $(this).attr('width', Math.floor(Math.random() * 1001) + 100)
+    $(this).attr('height', Math.floor(Math.random() * 1001) + 100)
 })
 
-// Load event
-window.addEventListener('load', e => {
-    alert("Window has loaded");
-});
+$("p").on("click", function() {
+    $(this).css("font-size", `${Math.floor(Math.random() * 76) + 16}px`)
+})
 
-// 8 - keyup event
-window.addEventListener('keyup', e => {
+$(window).on("load", function() {
+    alert("Window has loaded")
+})
+
+$(window).on("keyup", function(e) {
     alert(`The background color will stop changing now, ${e.code}`);
 })
 
-// keypress event
-let bodyTag = document.querySelector('body');
-
-window.addEventListener('keypress', e => {
+$(window).on("keypress", function() {
     let randomBackNumber = Math.floor(Math.random() * 21);
-    bodyTag.style.background = `linear-gradient(${randomBackgrounds[randomBackNumber]})`;
+    $("body").css("background", `linear-gradient(${randomBackgrounds[randomBackNumber]})`)
 })
 
-
-// 10 - Mouse over
-
-const h4 = document.querySelectorAll('h4');
-h4.forEach(item => {
-    item.addEventListener('mouseover', e => {
-        let randomBackNumber = Math.floor(Math.random() * 21);
-        item.style.background = `linear-gradient(${randomBackgrounds[randomBackNumber]})`;
-        item.style.webkitBackgroundClip = 'text';
-        item.style.webkitTextFillColor = 'transparent';
-        item.style.fontSize = '50px'
+$("h4").on("mousemove", function() {
+    let randomBackNumber = Math.floor(Math.random() * 21);
+    $(this).css({
+        background: `linear-gradient(${randomBackgrounds[randomBackNumber]})`,
+        webkitBackgroundClip: 'text',
+        webkitTextFillColor: 'transparent',
+        fontSize: '50px'
     })
 })
 
+/************************* STRETCH **********************/
 
-
-const buttons = document.querySelectorAll('.btn');
-
-buttons.forEach(item => {
-    item.addEventListener('click', e => {
-        console.log(e.target);
-        TweenMax.to(item, 0.5, {
-            rotationY: Math.floor(Math.random() * 1001),
-            rotationX: Math.floor(Math.random() * 1001),
-            ease: Power1.easeInOut,
-        })
+$(".btn").on("click", function(event) {
+    TweenMax.to($(this), 0.5, {
+        rotationY: Math.floor(Math.random() * 10001),
+        rotationX: Math.floor(Math.random() * 10001),
+        ease: Power1.easeInOut,
     })
 })
-
